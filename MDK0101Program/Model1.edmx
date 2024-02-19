@@ -1,0 +1,420 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Autor">
+          <Key>
+            <PropertyRef Name="ID_Autor" />
+          </Key>
+          <Property Name="ID_Autor" Type="int" Nullable="false" />
+          <Property Name="First_name" Type="varchar" MaxLength="50" />
+          <Property Name="Second_name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Books">
+          <Key>
+            <PropertyRef Name="ID_Books" />
+          </Key>
+          <Property Name="ID_Books" Type="int" Nullable="false" />
+          <Property Name="Title_Book" Type="varchar" MaxLength="50" />
+          <Property Name="Year" Type="varchar" MaxLength="50" />
+          <Property Name="ID_Autor" Type="int" />
+          <Property Name="Price" Type="int" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="ID_Gender" />
+          </Key>
+          <Property Name="ID_Gender" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Genre">
+          <Key>
+            <PropertyRef Name="ID_Genre" />
+          </Key>
+          <Property Name="ID_Genre" Type="int" Nullable="false" />
+          <Property Name="Title_Genre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="GenreBooks">
+          <Key>
+            <PropertyRef Name="ID_GenreBooks" />
+          </Key>
+          <Property Name="ID_Genre" Type="int" Nullable="false" />
+          <Property Name="ID_Books" Type="int" Nullable="false" />
+          <Property Name="ID_GenreBooks" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="ID_Role" />
+          </Key>
+          <Property Name="ID_Role" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID_User" />
+          </Key>
+          <Property Name="ID_User" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SurName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Patronymic" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_Gender" Type="int" Nullable="false" />
+          <Property Name="Date_Of_Birth" Type="date" Nullable="false" />
+          <Property Name="ID_Role" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Books_Autor">
+          <End Role="Autor" Type="Self.Autor" Multiplicity="0..1" />
+          <End Role="Books" Type="Self.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autor">
+              <PropertyRef Name="ID_Autor" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="ID_Autor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GenreBooks_Books">
+          <End Role="Books" Type="Self.Books" Multiplicity="1" />
+          <End Role="GenreBooks" Type="Self.GenreBooks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="ID_Books" />
+            </Principal>
+            <Dependent Role="GenreBooks">
+              <PropertyRef Name="ID_Books" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GenreBooks_Genre">
+          <End Role="Genre" Type="Self.Genre" Multiplicity="1" />
+          <End Role="GenreBooks" Type="Self.GenreBooks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genre">
+              <PropertyRef Name="ID_Genre" />
+            </Principal>
+            <Dependent Role="GenreBooks">
+              <PropertyRef Name="ID_Genre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Gender">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="ID_Gender" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ID_Gender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="ID_Role" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ID_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ModelContainer">
+          <EntitySet Name="Autor" EntityType="Self.Autor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Genre" EntityType="Self.Genre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GenreBooks" EntityType="Self.GenreBooks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Books_Autor" Association="Self.FK_Books_Autor">
+            <End Role="Autor" EntitySet="Autor" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GenreBooks_Books" Association="Self.FK_GenreBooks_Books">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="GenreBooks" EntitySet="GenreBooks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GenreBooks_Genre" Association="Self.FK_GenreBooks_Genre">
+            <End Role="Genre" EntitySet="Genre" />
+            <End Role="GenreBooks" EntitySet="GenreBooks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Gender" Association="Self.FK_User_Gender">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Autor">
+          <Key>
+            <PropertyRef Name="ID_Autor" />
+          </Key>
+          <Property Name="ID_Autor" Type="Int32" Nullable="false" />
+          <Property Name="First_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Second_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Books" Relationship="Self.FK_Books_Autor" FromRole="Autor" ToRole="Books" />
+        </EntityType>
+        <EntityType Name="Books">
+          <Key>
+            <PropertyRef Name="ID_Books" />
+          </Key>
+          <Property Name="ID_Books" Type="Int32" Nullable="false" />
+          <Property Name="Title_Book" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Year" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID_Autor" Type="Int32" />
+          <Property Name="Price" Type="Int32" />
+          <NavigationProperty Name="Autor" Relationship="Self.FK_Books_Autor" FromRole="Books" ToRole="Autor" />
+          <NavigationProperty Name="GenreBooks" Relationship="Self.FK_GenreBooks_Books" FromRole="Books" ToRole="GenreBooks" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="ID_Gender" />
+          </Key>
+          <Property Name="ID_Gender" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_Gender" FromRole="Gender" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Genre">
+          <Key>
+            <PropertyRef Name="ID_Genre" />
+          </Key>
+          <Property Name="ID_Genre" Type="Int32" Nullable="false" />
+          <Property Name="Title_Genre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="GenreBooks" Relationship="Self.FK_GenreBooks_Genre" FromRole="Genre" ToRole="GenreBooks" />
+        </EntityType>
+        <EntityType Name="GenreBooks">
+          <Key>
+            <PropertyRef Name="ID_GenreBooks" />
+          </Key>
+          <Property Name="ID_Genre" Type="Int32" Nullable="false" />
+          <Property Name="ID_Books" Type="Int32" Nullable="false" />
+          <Property Name="ID_GenreBooks" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Books" Relationship="Self.FK_GenreBooks_Books" FromRole="GenreBooks" ToRole="Books" />
+          <NavigationProperty Name="Genre" Relationship="Self.FK_GenreBooks_Genre" FromRole="GenreBooks" ToRole="Genre" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="ID_Role" />
+          </Key>
+          <Property Name="ID_Role" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID_User" />
+          </Key>
+          <Property Name="ID_User" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SurName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_Gender" Type="Int32" Nullable="false" />
+          <Property Name="Date_Of_Birth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ID_Role" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Gender" Relationship="Self.FK_User_Gender" FromRole="User" ToRole="Gender" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK_Books_Autor">
+          <End Role="Autor" Type="Self.Autor" Multiplicity="0..1" />
+          <End Role="Books" Type="Self.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autor">
+              <PropertyRef Name="ID_Autor" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="ID_Autor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GenreBooks_Books">
+          <End Role="Books" Type="Self.Books" Multiplicity="1" />
+          <End Role="GenreBooks" Type="Self.GenreBooks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="ID_Books" />
+            </Principal>
+            <Dependent Role="GenreBooks">
+              <PropertyRef Name="ID_Books" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Gender">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="ID_Gender" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ID_Gender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GenreBooks_Genre">
+          <End Role="Genre" Type="Self.Genre" Multiplicity="1" />
+          <End Role="GenreBooks" Type="Self.GenreBooks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genre">
+              <PropertyRef Name="ID_Genre" />
+            </Principal>
+            <Dependent Role="GenreBooks">
+              <PropertyRef Name="ID_Genre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="ID_Role" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ID_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Autor" EntityType="Self.Autor" />
+          <EntitySet Name="Books" EntityType="Self.Books" />
+          <EntitySet Name="Gender" EntityType="Self.Gender" />
+          <EntitySet Name="Genre" EntityType="Self.Genre" />
+          <EntitySet Name="GenreBooks" EntityType="Self.GenreBooks" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="FK_Books_Autor" Association="Self.FK_Books_Autor">
+            <End Role="Autor" EntitySet="Autor" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GenreBooks_Books" Association="Self.FK_GenreBooks_Books">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="GenreBooks" EntitySet="GenreBooks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Gender" Association="Self.FK_User_Gender">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GenreBooks_Genre" Association="Self.FK_GenreBooks_Genre">
+            <End Role="Genre" EntitySet="Genre" />
+            <End Role="GenreBooks" EntitySet="GenreBooks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Autor">
+            <EntityTypeMapping TypeName="Model.Autor">
+              <MappingFragment StoreEntitySet="Autor">
+                <ScalarProperty Name="ID_Autor" ColumnName="ID_Autor" />
+                <ScalarProperty Name="First_name" ColumnName="First_name" />
+                <ScalarProperty Name="Second_name" ColumnName="Second_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="Model.Books">
+              <MappingFragment StoreEntitySet="Books">
+                <ScalarProperty Name="ID_Books" ColumnName="ID_Books" />
+                <ScalarProperty Name="Title_Book" ColumnName="Title_Book" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="ID_Autor" ColumnName="ID_Autor" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gender">
+            <EntityTypeMapping TypeName="Model.Gender">
+              <MappingFragment StoreEntitySet="Gender">
+                <ScalarProperty Name="ID_Gender" ColumnName="ID_Gender" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genre">
+            <EntityTypeMapping TypeName="Model.Genre">
+              <MappingFragment StoreEntitySet="Genre">
+                <ScalarProperty Name="ID_Genre" ColumnName="ID_Genre" />
+                <ScalarProperty Name="Title_Genre" ColumnName="Title_Genre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GenreBooks">
+            <EntityTypeMapping TypeName="Model.GenreBooks">
+              <MappingFragment StoreEntitySet="GenreBooks">
+                <ScalarProperty Name="ID_Genre" ColumnName="ID_Genre" />
+                <ScalarProperty Name="ID_Books" ColumnName="ID_Books" />
+                <ScalarProperty Name="ID_GenreBooks" ColumnName="ID_GenreBooks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="Model.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="ID_Role" ColumnName="ID_Role" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="Model.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="SurName" ColumnName="SurName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ID_Gender" ColumnName="ID_Gender" />
+                <ScalarProperty Name="Date_Of_Birth" ColumnName="Date_Of_Birth" />
+                <ScalarProperty Name="ID_Role" ColumnName="ID_Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
