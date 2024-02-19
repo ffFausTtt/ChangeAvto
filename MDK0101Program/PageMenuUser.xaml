@@ -15,7 +15,7 @@
             </Border.Effect>
             <StackPanel>
                 <TextBlock Text="Меню Пользователя" FontSize="30" FontWeight="Bold" Margin="0 0 0 20" HorizontalAlignment="Center"></TextBlock>
-                <Image Source="/images/avatar.jpg" Height="66" Width="82"></Image>
+                <Image Source="profil/ava.png" Height="66" Width="82"></Image>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Width="150" FontSize="15">Имя</TextBlock>
                     <TextBox Name="Name" FontSize="15" Width ="200"></TextBox>
